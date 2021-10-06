@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Mongo TODO List</title>
+</head>
+<body>
+    <form method="POST" action="{{ url_for('index') }}" >
+        {{ form.hidden_tag() }}
+        <div>{{ form.todo_input.label }}: {{ form.todo_input() }}</div>
+        <div>{{ form.submit.label }}: {{ form.submit() }}</div>
+    </form>
+</body>
+</html>
