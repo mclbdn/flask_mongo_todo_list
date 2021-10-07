@@ -1,13 +1,7 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
+{% set active_page = 'home' %}
 {% block content %}
-    <ul class="menu">
-        <li class="selected"><a href="{{ url_for('home') }}">HOME</a></li>
-        <li><a href="{{ url_for('create') }}">CREATE</a></li>
-        <li><a href="{{ url_for('read') }}">READ</a></li>
-        <li><a href="{{ url_for('update') }}">UPDATE</a></li>
-        <li><a href="{{ url_for('delete') }}">DELETE</a></li>
-    </ul>
     <table>
         <tr>
             <th>TODO Name</th>

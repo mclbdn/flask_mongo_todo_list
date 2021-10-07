@@ -12,8 +12,13 @@
 </head>
 <body>
     <h1>Flask Mongo TODO List</h1>
+    <ul class="menu">
+        <li class="{{ 'selected' if active_page == 'home' else '' }}"><a href="{{ url_for('home') }}">HOME</a></li>
+        <li class="{{ 'selected' if active_page == 'create' else '' }}"><a href="{{ url_for('create') }}">CREATE</a></li>
+        <li class="{{ 'selected' if active_page == 'read' else '' }}"><a href="{{ url_for('read') }}">READ</a></li>
+        <li class="{{ 'selected' if active_page == 'update' else '' }}"><a href="{{ url_for('update') }}">UPDATE</a></li>
+        <li class="{{ 'selected' if active_page == 'delete' else '' }}"><a href="{{ url_for('delete') }}">DELETE</a></li>
+    </ul>
     {% block content %}{% endblock %}
-    
-    {% block search_result %}{% endblock %}
 </body>
 </html>

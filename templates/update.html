@@ -1,13 +1,7 @@
 {% extends "base.html" %}
 {% block title %} {{ title }} {% endblock %}
+{% set active_page = 'update' %}
 {% block content %}
-    <ul class="menu">
-        <li><a href="{{ url_for('home') }}">HOME</a></li>
-        <li><a href="{{ url_for('create') }}">CREATE</a></li>
-        <li><a href="{{ url_for('read') }}">READ</a></li>
-        <li class="selected"><a href="{{ url_for('update') }}">UPDATE</a></li>
-        <li><a href="{{ url_for('delete') }}">DELETE</a></li>
-    </ul>
     <form method="POST" action="{{ url_for('update') }}">
     {{ form.csrf_token }} {{ form.id_input.label }}
     {{ form.id_input() }}
@@ -15,7 +9,4 @@
     {{ form.new_text_input() }}
     {{form.submit() }}
     </form>
-{% endblock %}
-{% block search_result %}
-<h1>Update</h1>
 {% endblock %}
