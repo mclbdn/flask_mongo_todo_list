@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+}
+
+html {
+    width: 100%;
+    padding: 20px;
+    font-family: 'Space Mono', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to left, #457fca, #5691c8);
+}
+
+h1 {
+    font-weight: 700;
+    text-align: center;
+}
+
+input[type=submit] {
+    font-family: 'Space Mono', monospace;
+}
+
+form {
+    position: relative;
+    background: #006eff;
+    width: 400px;
+    height: 50px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    overflow: hidden;
+    padding: 20px;
+}
