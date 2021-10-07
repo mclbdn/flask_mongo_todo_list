@@ -4,8 +4,7 @@ from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
-from command_functions import addTodoItem, searchItem, deleteTodoItem
-
+from command_functions import addTodoItem, searchItem, deleteTodoItem, editTodoItem
 
 from pymongo import MongoClient
 from command_functions import addTodoItem, editTodoItem, searchItem, deleteTodoItem
@@ -36,17 +35,15 @@ class TodoForm(FlaskForm):
     submit = SubmitField(label="Submit")
 
 class UpdateForm(FlaskForm):
-    todo_input = StringField(label="User entry:", validators=[DataRequired(), Length(min=1, max=100)])
-    another_input = StringField(label="New text", validators=[DataRequired(), Length(min=1, max=100)])
+    id_input = StringField(label="Todo's ID:", validators=[DataRequired(), Length(min=1, max=100)])
+    new_text_input = StringField(label="New text", validators=[DataRequired(), Length(min=1, max=100)])
     submit = SubmitField(label="Submit")
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    form = TodoForm()
-    if form.validate_on_submit():
-        return redirect(url_for("home"))
-
-    return render_template("home.html", form=form)
+    cursor = list(db_todos_collection.find({}))
+    print(cursor)
+    return render_template("home.html", cursor=cursor)
 
 @app.route("/create", methods=["GET", "POST"])
 def create():
@@ -77,9 +74,13 @@ def read():
 @app.route("/update", methods=["GET", "POST"])
 def update():
     form = UpdateForm()
-    form.todo_input.render_kw = {"placeholder": "Update by ID"}
+    form.id_input.render_kw = {"placeholder": "Enter todo's ID"}
+    form.new_text_input.render_kw = {"placeholder": "Enter todo's new text"}
+    id_input = form.id_input.data
+    new_text_input = form.new_text_input.data
     if form.validate_on_submit():
-        return redirect(url_for("index"))
+        editTodoItem(db_todos_collection, id_input, new_text_input)
+        return redirect(url_for("home"))
 
     return render_template("update.html", form=form, title="update")
 

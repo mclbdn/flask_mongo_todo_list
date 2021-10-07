@@ -5,14 +5,14 @@
         <li><a href="{{ url_for('home') }}">HOME</a></li>
         <li><a href="{{ url_for('create') }}">CREATE</a></li>
         <li><a href="{{ url_for('read') }}">READ</a></li>
-        <li><a href="{{ url_for('update') }}">UPDATE</a></li>
+        <li class="selected"><a href="{{ url_for('update') }}">UPDATE</a></li>
         <li><a href="{{ url_for('delete') }}">DELETE</a></li>
     </ul>
     <form method="POST" action="{{ url_for('update') }}">
-    {{ form.csrf_token }} {{ form.todo_input.label }}
-    {{ form.todo_input() }}
-    {{ form.another_input.label }}
-    {{ form.another_input() }}
+    {{ form.csrf_token }} {{ form.id_input.label }}
+    {{ form.id_input() }}
+    {{ form.new_text_input.label }}
+    {{ form.new_text_input() }}
     {{form.submit() }}
     </form>
 {% endblock %}

@@ -29,10 +29,9 @@ def id_exists(col, todo_id):
     return False
 
 # Edit A Single Item
-def editTodoItem(col):
-    todo_id = input("Enter a valid todo ID to edit: ")
+def editTodoItem(col, todo_id, new_text):
     if id_exists(col, todo_id):
-        col.update_one({"_id": todo_id}, {"$set": {"todo_name": input("Enter a new todo text: ")}})
+        col.update_one({"_id": todo_id}, {"$set": {"todo_name": new_text}})
         print("Todo text successfully updated.")
 
 

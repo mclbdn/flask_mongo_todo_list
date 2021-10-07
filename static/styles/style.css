@@ -63,13 +63,13 @@ input[type="submit"]:active {
 form {
     /* position: relative; */
     background: #006eff;
-    width: 270px;
+    width: 272px;
     /* height: 50px; */
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     overflow: hidden;
     padding: 20px;
-    margin: 0 auto;
+    margin: 1em auto;
     display: flex;
     flex-direction: column;
 }
@@ -97,4 +97,26 @@ form {
   background-color: #111;
 }
 
+.selected {
+  background: #006eff;
+}
 
+table {
+  margin-top: 1em;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  /* border: 1px solid #ddddd; */
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #fff;
+}
+
+tr:nth-child(odd) {
+  background-color: #006eff;
+}

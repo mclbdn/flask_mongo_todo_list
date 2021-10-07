@@ -2,11 +2,25 @@
 {% block title %} Home {% endblock %}
 {% block content %}
     <ul class="menu">
-        <li><a href="{{ url_for('home') }}">HOME</a></li>
+        <li class="selected"><a href="{{ url_for('home') }}">HOME</a></li>
         <li><a href="{{ url_for('create') }}">CREATE</a></li>
         <li><a href="{{ url_for('read') }}">READ</a></li>
         <li><a href="{{ url_for('update') }}">UPDATE</a></li>
         <li><a href="{{ url_for('delete') }}">DELETE</a></li>
     </ul>
-    </form>
+    <table>
+        <tr>
+            <th>TODO Name</th>
+            <th>TODO ID</th>
+        </tr>
+        {% if cursor %}
+        {% for item in cursor %}
+        <tr>
+            <td>{{ item.todo_name }}</td>
+            <td>{{ item._id }}</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+    
 {% endblock %}
