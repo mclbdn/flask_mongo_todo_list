@@ -3,7 +3,6 @@ body {
 }
 
 html {
-    width: 100%;
     padding: 20px;
     font-family: 'Space Mono', monospace;
     display: flex;
@@ -21,13 +20,40 @@ input[type=submit] {
     font-family: 'Space Mono', monospace;
 }
 
+
 form {
-    position: relative;
+    /* position: relative; */
     background: #006eff;
-    width: 400px;
+    width: 250px;
     height: 50px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     overflow: hidden;
     padding: 20px;
+    margin: 0 auto;
 }
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #073f88;
+}
+
+.menu li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.menu li a:hover:not(.active) {
+  background-color: #111;
+}
+
+

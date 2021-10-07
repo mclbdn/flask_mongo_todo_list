@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask.helpers import url_for
 from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
@@ -14,13 +14,20 @@ class TodoForm(FlaskForm):
     submit = SubmitField(label="Submit")
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+def home():
     form = TodoForm()
     if form.validate_on_submit():
-        print("hello")
+        return redirect(url_for("home"))
+
+    return render_template("home.html", form=form)
+
+@app.route("/create", methods=["GET", "POST"])
+def create():
+    form = TodoForm()
+    if form.validate_on_submit():
         return redirect(url_for("index"))
 
-    return render_template("index.html", form=form)
+    return render_template("create.html", form=form)
 
 if __name__ == "__main__":
     app.run(debug=True)

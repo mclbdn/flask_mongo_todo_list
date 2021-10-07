@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block content %}
+    <ul class="menu">
+        <li><a href="{{ url_for('home') }}"">HOME</a></li>
+        <li><a href="{{ url_for('create') }}">CREATE</a></li>
+        <li><a href="">READ</a></li>
+        <li><a href="">UPDATE</a></li>
+        <li><a href="">DELETE</a></li>
+    </ul>
+    <form method="POST" action="{{ url_for('home') }}">
+    {{ form.hidden_tag() }} {{ form.todo_input.label }}: <br />
+    {{ form.todo_input(placeholder="Please enter your username") }} {{
+    form.submit() }}
+    </form>
+{% endblock %}
