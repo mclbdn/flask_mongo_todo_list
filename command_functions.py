@@ -1,18 +1,21 @@
 from TodoItem import TodoItem
 
 # Add an Item To The List
-def addTodoItem(col):
-    todo_name = input("Enter a todo name: ")
+def addTodoItem(col, user_input):
+    # todo_name = input("Enter a todo name: ")
+    print("Called")
     item = TodoItem()
-    item.todo_name = todo_name
+    item.todo_name = user_input
     col.insert_one({"todo_name": item.todo_name, "_id": item._id})
     print("Todo successfully added.")
 
 # Fulltext Search In A Collection
-def searchItem(col):
-    search = input("Search for text in todos: ")
-    if len(list(col.find( { "$text": { "$search": search } } ))) != 0:
-        for result in col.find( { "$text": { "$search": search } } ):
+def searchItem(col, user_input):
+    print(col)
+    print(user_input)
+    if len(list(col.find( { "$text": { "$search": user_input } } ))) != 0:
+        print("Inside")
+        for result in col.find( { "$text": { "$search": user_input } } ):
                 print(result)
     else:
         print("No result found")
@@ -34,8 +37,7 @@ def editTodoItem(col):
 
 
 # Delete A Single Item
-def deleteTodoItem(col):
-    todo_id = input("Enter a valid todo ID to delete: ")
-    if id_exists(col, todo_id):
-        col.delete_one({"_id": todo_id})
+def deleteTodoItem(col, user_input):
+    if id_exists(col, user_input):
+        col.delete_one({"_id": user_input})
         print("Todo item successfully deleted.")

@@ -2,15 +2,42 @@ from flask import Flask, render_template
 from flask.helpers import url_for
 from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
-from wtforms import Form, StringField, SubmitField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
+from command_functions import addTodoItem, searchItem, deleteTodoItem
+
+
+from pymongo import MongoClient
+from command_functions import addTodoItem, editTodoItem, searchItem, deleteTodoItem
+import os
+
+# Your credentials from Mongo DB Atlas Database User
+USERNAME = os.environ.get("MONGO_DB_USER")
+PASSWORD = os.environ.get("MONGO_DB_PASSWORD")
+print(USERNAME)
+print(PASSWORD)
+
+# Mongo Setup
+# Create a new database with name "cliTodoListDatabase" in Mongo DB Atlas and access it like bellow
+client = MongoClient(f"mongodb+srv://root:Miminitos1.@cluster0.wdagb.mongodb.net/cliTodoListDatabase?retryWrites=true&w=majority")
+
+db = client.get_database("cliTodoListDatabase") 
+
+db_todos_collection = db.get_collection("Todos")
+# Setup index for search for todo_name
+db_todos_collection.create_index([('todo_name', 'text')])
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "mysecreto1"
 
 class TodoForm(FlaskForm):
-    todo_input = StringField(label="Enter the text of TODO", validators=[DataRequired(), Length(min=1, max=100)])
+    todo_input = StringField(label="User entry:", validators=[DataRequired(), Length(min=1, max=100)])
+    submit = SubmitField(label="Submit")
+
+class UpdateForm(FlaskForm):
+    todo_input = StringField(label="User entry:", validators=[DataRequired(), Length(min=1, max=100)])
+    another_input = StringField(label="New text", validators=[DataRequired(), Length(min=1, max=100)])
     submit = SubmitField(label="Submit")
 
 @app.route("/", methods=["GET", "POST"])
@@ -25,37 +52,47 @@ def home():
 def create():
     form = TodoForm()
     form.todo_input.render_kw = {"placeholder": "Create a new TODO"}
+    todo_input = form.todo_input.data
+    print("Before validate")
     if form.validate_on_submit():
-        return redirect(url_for("index"))
-
-    return render_template("create.html", form=form, title="Create")
+        print("Validated")
+        addTodoItem(db_todos_collection, todo_input)
+        return redirect(url_for("home"))
+    else:
+        print("Not valited")
+    print("Leaving")
+    return render_template("create.html", form=form, title="create")
 
 @app.route("/read", methods=["GET", "POST"])
 def read():
     form = TodoForm()
-    form.todo_input.render_kw = {"placeholder": "Search by text"}
+    form.todo_input.render_kw = {"placeholder": "Type i.e. 'clean'"}
+    todo_input = form.todo_input.data
     if form.validate_on_submit():
-        return redirect(url_for("index"))
+        searchItem(db_todos_collection, todo_input)
+        return redirect(url_for("home"))
 
-    return render_template("read.html", form=form, title="Read")
+    return render_template("read.html", form=form, title="read")
 
 @app.route("/update", methods=["GET", "POST"])
 def update():
-    form = TodoForm()
+    form = UpdateForm()
     form.todo_input.render_kw = {"placeholder": "Update by ID"}
     if form.validate_on_submit():
         return redirect(url_for("index"))
 
-    return render_template("update.html", form=form, title="Update")
+    return render_template("update.html", form=form, title="update")
 
 @app.route("/delete", methods=["GET", "POST"])
 def delete():
     form = TodoForm()
     form.todo_input.render_kw = {"placeholder": "Delete by ID"}
+    todo_input = form.todo_input.data
     if form.validate_on_submit():
-        return redirect(url_for("index"))
+        deleteTodoItem(db_todos_collection, todo_input)
+        return redirect(url_for("home"))
 
-    return render_template("delete.html", form=form, title="Delete")
+    return render_template("delete.html", form=form, title="delete")
 
 if __name__ == "__main__":
     app.run(debug=True)

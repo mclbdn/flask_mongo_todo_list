@@ -2,6 +2,14 @@ body {
     margin: 0;
 }
 
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 html {
     padding: 20px;
     font-family: 'Space Mono', monospace;
@@ -16,21 +24,54 @@ h1 {
     text-align: center;
 }
 
-input[type=submit] {
+input{
     font-family: 'Space Mono', monospace;
+    font-size: 1em;
+    margin: 0;
+    font-weight: 700;
 }
 
+input:focus {
+  border-color: #FDED62;
+  background: #FDED62;
+  color: #000;
+}
+
+label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  font-size: 13px;
+}
+
+input[type="submit"] {
+  color: #006eff;
+  border: none;
+  background: #fff;
+  font-style: italic;
+  font-weight: 400;
+  margin: 1em 0 0 0;
+}
+
+input[type="submit"]:active {
+  color: #fff;
+  border: none;
+  background: #000;
+  font-style: italic;
+}
 
 form {
     /* position: relative; */
     background: #006eff;
-    width: 250px;
-    height: 50px;
+    width: 270px;
+    /* height: 50px; */
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     overflow: hidden;
     padding: 20px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .menu {

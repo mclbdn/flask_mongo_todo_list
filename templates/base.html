@@ -13,11 +13,7 @@
 <body>
     <h1>Flask Mongo TODO List</h1>
     {% block content %}{% endblock %}
-    <form method="POST" action="{{ url_for('home') }}">
-    {{ form.hidden_tag() }} {{ form.todo_input.label }}: <br />
-    {{ form.todo_input() }} {{
-    form.submit() }}
-    </form>
+    
     {% block search_result %}{% endblock %}
 </body>
 </html>
