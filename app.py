@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 USERNAME = os.environ.get("MONGO_DB_USER")
 PASSWORD = os.environ.get("MONGO_DB_PASSWORD")
+MY_SECRET_KEY = os.environ.get("MY_SECRET_KEY")
 
 # Mongo Setup
 # Create a new database with name "cliTodoListDatabase" in Mongo DB Atlas and access it like bellow
@@ -27,7 +28,7 @@ db_todos_collection.create_index([('todo_name', 'text')])
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = "mysecreto1"
+app.config['SECRET_KEY'] = MY_SECRET_KEY
 
 class TodoForm(FlaskForm):
     todo_input = StringField(label="User entry:", validators=[DataRequired(), Length(min=1, max=100)])
