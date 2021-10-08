@@ -19,6 +19,23 @@
         <li class="{{ 'selected' if active_page == 'update' else '' }}"><a href="{{ url_for('update') }}">UPDATE</a></li>
         <li class="{{ 'selected' if active_page == 'delete' else '' }}"><a href="{{ url_for('delete') }}">DELETE</a></li>
     </ul>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        setTimeout(function() {
+            $('.flashes').fadeOut('slow');
+        }, 2000); // <-- time in milliseconds
+    });
+    </script>
 </body>
 </html>

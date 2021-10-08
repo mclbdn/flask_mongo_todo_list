@@ -83,6 +83,27 @@ form {
   background-color: #073f88;
 }
 
+.flashes {
+  list-style-type: none;
+  margin-top: 1em;
+  padding: 0;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+}
+
+.success {
+  font-weight: 700;
+  width: 100%;
+  background-color: #FDED62;
+}
+
+.fail {
+  font-weight: 700;
+  width: 100%;
+  background-color: #e63030;
+}
+
 .menu li a {
   display: block;
   color: white;

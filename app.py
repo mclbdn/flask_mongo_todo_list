@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash
 from flask.helpers import url_for
 from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
@@ -49,6 +49,7 @@ def create():
     form.todo_input.render_kw = {"placeholder": "Create a new TODO"}
     todo_input = form.todo_input.data
     if form.validate_on_submit():
+        flash("Item successfully added.", "success")
         addTodoItem(db_todos_collection, todo_input)
         return redirect(url_for("home"))
     return render_template("create.html", form=form, title="create")
@@ -60,7 +61,12 @@ def read():
     todo_input = form.todo_input.data
     if form.validate_on_submit():
         cursor = searchItem(db_todos_collection, todo_input)
-        return render_template("read.html", form=form, cursor=cursor)
+        if cursor:
+            flash("Item(s) successfully found.", "success")
+            return render_template("read.html", form=form, cursor=cursor)
+        else:
+            flash("Item(s) not found.", "fail")
+            return render_template("read.html", form=form, cursor=cursor)
 
     return render_template("read.html", form=form, title="read")
 
