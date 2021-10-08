@@ -2,7 +2,7 @@
 
 ### <a href="https://lit-brook-98133.herokuapp.com">Try running this app here.</a>
 
-TODO list app using Flask and Mongo DB Atlas (Cloud DBaaS for MongoDB).
+TODO list CRUD app using Flask and Mongo DB Atlas (Cloud DBaaS for MongoDB).
 
 ## Challenges I faced
 * This was my first time using NoSQL DB and initially, I was a bit confused, but I got quickly used to it and I have to say that document databases are my favorite now!
