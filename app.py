@@ -78,8 +78,13 @@ def update():
     id_input = form.id_input.data
     new_text_input = form.new_text_input.data
     if form.validate_on_submit():
-        editTodoItem(db_todos_collection, id_input, new_text_input)
-        return redirect(url_for("home"))
+        exists = editTodoItem(db_todos_collection, id_input, new_text_input)
+        if exists:
+            flash("Item successfully updated.", "success")
+            return redirect(url_for("home"))
+        else:
+            flash("Item not found.", "fail")
+            return redirect(url_for("update"))
 
     return render_template("update.html", form=form, title="update")
 
@@ -89,8 +94,13 @@ def delete():
     form.todo_input.render_kw = {"placeholder": "Delete by ID"}
     todo_input = form.todo_input.data
     if form.validate_on_submit():
-        deleteTodoItem(db_todos_collection, todo_input)
-        return redirect(url_for("home"))
+        exists = deleteTodoItem(db_todos_collection, todo_input)
+        if exists:
+            flash("Item successfully deleted.", "success")
+            return redirect(url_for("home"))
+        else:
+            flash("Item not found.", "fail")
+            return redirect(url_for("delete"))
 
     return render_template("delete.html", form=form, title="delete")
 

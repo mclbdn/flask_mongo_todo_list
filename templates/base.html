@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 </head>
 <body>
+    
     <h1>Flask Mongo TODO List</h1>
     <ul class="menu">
         <li class="{{ 'selected' if active_page == 'home' else '' }}"><a href="{{ url_for('home') }}">HOME</a></li>
@@ -34,7 +35,7 @@
         $(document).ready(function() {
         setTimeout(function() {
             $('.flashes').fadeOut('slow');
-        }, 2000); // <-- time in milliseconds
+        }, 2000);
     });
     </script>
 </body>

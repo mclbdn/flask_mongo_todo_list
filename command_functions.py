@@ -26,9 +26,11 @@ def id_exists(col, todo_id):
 def editTodoItem(col, todo_id, new_text):
     if id_exists(col, todo_id):
         col.update_one({"_id": todo_id}, {"$set": {"todo_name": new_text}})
+        return True
 
 
 # Delete A Single Item
 def deleteTodoItem(col, user_input):
     if id_exists(col, user_input):
         col.delete_one({"_id": user_input})
+        return True
