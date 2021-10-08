@@ -1,6 +1,6 @@
 # flask_mongo_todo_list
 
-### <a href="https://lit-brook-98133.herokuapp.com" target="_blank">Try running this app here.</a>
+### <a href="https://lit-brook-98133.herokuapp.com">Try running this app here.</a>
 
 TODO list app using Flask and Mongo DB Atlas (Cloud DBaaS for MongoDB).
 
