@@ -105,4 +105,4 @@ def delete():
     return render_template("delete.html", form=form, title="delete")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
