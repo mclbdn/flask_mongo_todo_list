@@ -5,20 +5,19 @@ from werkzeug.utils import redirect
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 from command_functions import addTodoItem, searchItem, deleteTodoItem, editTodoItem
-
 from pymongo import MongoClient
 from command_functions import addTodoItem, editTodoItem, searchItem, deleteTodoItem
 import os
+from dotenv import load_dotenv
 
 # Your credentials from Mongo DB Atlas Database User
+load_dotenv()
 USERNAME = os.environ.get("MONGO_DB_USER")
 PASSWORD = os.environ.get("MONGO_DB_PASSWORD")
-print(USERNAME)
-print(PASSWORD)
 
 # Mongo Setup
 # Create a new database with name "cliTodoListDatabase" in Mongo DB Atlas and access it like bellow
-client = MongoClient(f"mongodb+srv://root:Miminitos1.@cluster0.wdagb.mongodb.net/cliTodoListDatabase?retryWrites=true&w=majority")
+client = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.wdagb.mongodb.net/cliTodoListDatabase?retryWrites=true&w=majority")
 
 db = client.get_database("cliTodoListDatabase") 
 
@@ -42,7 +41,6 @@ class UpdateForm(FlaskForm):
 @app.route("/", methods=["GET", "POST"])
 def home():
     cursor = list(db_todos_collection.find({}))
-    print(cursor)
     return render_template("home.html", cursor=cursor)
 
 @app.route("/create", methods=["GET", "POST"])
@@ -50,14 +48,9 @@ def create():
     form = TodoForm()
     form.todo_input.render_kw = {"placeholder": "Create a new TODO"}
     todo_input = form.todo_input.data
-    print("Before validate")
     if form.validate_on_submit():
-        print("Validated")
         addTodoItem(db_todos_collection, todo_input)
         return redirect(url_for("home"))
-    else:
-        print("Not valited")
-    print("Leaving")
     return render_template("create.html", form=form, title="create")
 
 @app.route("/read", methods=["GET", "POST"])
@@ -66,8 +59,8 @@ def read():
     form.todo_input.render_kw = {"placeholder": "Type i.e. 'clean'"}
     todo_input = form.todo_input.data
     if form.validate_on_submit():
-        searchItem(db_todos_collection, todo_input)
-        return redirect(url_for("home"))
+        cursor = searchItem(db_todos_collection, todo_input)
+        return render_template("read.html", form=form, cursor=cursor)
 
     return render_template("read.html", form=form, title="read")
 

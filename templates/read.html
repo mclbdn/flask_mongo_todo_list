@@ -7,4 +7,18 @@
     {{ form.todo_input() }} {{
     form.submit() }}
     </form>
+    <table>
+        <tr>
+            <th>TODO Name</th>
+            <th>TODO ID</th>
+        </tr>
+        {% if cursor %}
+            {% for item in cursor %}
+                <tr>
+                    <td>{{ item.todo_name }}</td>
+                    <td>{{ item._id }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
 {% endblock %}
