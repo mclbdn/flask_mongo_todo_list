@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+{% set active_page = 'create' %}
+{% block content %}
+    <form method="POST" action="{{ url_for('create') }}">
+    {{ form.csrf_token }} {{ form.todo_input.label }}
+    {{ form.todo_input() }} {{
+    form.submit() }}
+    </form>
+{% endblock %}

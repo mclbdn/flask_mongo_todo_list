@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+{% set active_page = 'update' %}
+{% block content %}
+    <form method="POST" action="{{ url_for('update') }}">
+    {{ form.csrf_token }} {{ form.id_input.label }}
+    {{ form.id_input() }}
+    {{ form.new_text_input.label }}
+    {{ form.new_text_input() }}
+    {{form.submit() }}
+    </form>
+{% endblock %}
