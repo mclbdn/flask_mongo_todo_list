@@ -1,7 +1,5 @@
 # flask_mongo_todo_list
 
-### <a href="https://mclbdn-todo.herokuapp.com">Try running this app here.</a>
-
 TODO list CRUD app using Flask and Mongo DB Atlas (Cloud DBaaS for MongoDB).
 
 ## Challenges I faced
